@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "203360712356",
+    "project_id": "mind-mirror-3a38d",
+    "storage_bucket": "mind-mirror-3a38d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203360712356:android:0a4a43737a35d813c81831",
+        "android_client_info": {
+          "package_name": "com.example.mind_mirror"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIG5lj2degoEwjx0RwD9qMyDh6Hl3DS5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
