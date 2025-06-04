@@ -21,7 +21,7 @@ class _CognitiveFlipGameState extends State<CognitiveFlipGame> {
       "title": "Memory",
       "icon": Icons.memory,
       "color": Colors.purple,
-      "cards": ["🍎", "🌻", "🚗",]
+      "cards": ["🍎", "🌻", "🚗","🌻" ]
     },
     {
       "title": "Logic",
