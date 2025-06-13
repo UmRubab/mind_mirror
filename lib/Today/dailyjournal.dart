@@ -1,68 +1,109 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart'; // import the model
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 
-class AddJournalPage extends StatefulWidget {
-  const AddJournalPage({super.key});
+import 'journal list.dart';
+class dailyjouranl extends StatefulWidget {
+  const dailyjouranl({super.key});
 
   @override
-  State<AddJournalPage> createState() => _AddJournalPageState();
+  State<dailyjouranl> createState() => _dailyjouranlState();
 }
-
-class _AddJournalPageState extends State<AddJournalPage> {
+class _dailyjouranlState extends State<dailyjouranl> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
-  final _database = FirebaseDatabase.instance.ref('journal');
-  final _auth = FirebaseAuth.instance;
-
-  Future<void> _saveJournalEntry() async {
-    final users = _auth.currentUser;
-    if (users == null) return;
+  final DatabaseReference _journalRef = FirebaseDatabase.instance.ref('journal');
+  final auth = FirebaseAuth.instance;
+  List<JournalEntry> data = [];
+  Future<JournalEntry> saveJournalEntry() async {
     final entry = JournalEntry(
       title: titleController.text.trim(),
       content: contentController.text.trim(),
       date: DateTime.now().toIso8601String(),
     );
-
-    final journalRef = _database
-        .child('journals')
+    final journalRef =  _journalRef
         .push();
-
     await journalRef.set(entry.toMap());
-
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Journal saved')),
     );
 
     titleController.clear();
     contentController.clear();
+    return entry;
   }
+  Future<List<JournalEntry>> fetchJournalEntries() async {
+    final snapshot = await _journalRef.get();
+
+    List<JournalEntry> entries = [];
+
+    if (snapshot.exists) {
+      final data = snapshot.value as Map<dynamic, dynamic>;
+
+      data.forEach((key, value) {
+        entries.add(JournalEntry(
+          title: value['title'] ?? '',
+          content: value['content'] ?? '',
+          date: value['Date'] ?? '',
+        ));
+      });
+    }
+
+    return entries;
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
+    final mediaquery=MediaQuery.of(context).size;
+    final height=mediaquery.height;
+    final widht= mediaquery.width;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Daily Journal')),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+      body:
+      Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage('images/journal.jpg'),),
+        ),
+        child: Center(
           child: Container(
             child: Column(
               children: [
+                Text('My daily Journal'),
                 TextField(
                   controller: titleController,
-                  decoration: const InputDecoration(labelText: 'Title'),
+                  decoration: InputDecoration(labelText: 'Title'),
                 ),
-                 SizedBox(height: 10),
+                SizedBox(height: 10),
                 TextField(
                   controller: contentController,
-                  decoration: const InputDecoration(labelText: 'What’s on your mind?'),
+                  decoration: InputDecoration(labelText: 'What’s on your mind?'),
                   maxLines: 5,
                 ),
-                 SizedBox(height: 10),
+                SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: _saveJournalEntry,
+                  onPressed: () async {
+                    final entry = await saveJournalEntry();
+                    data.add(entry);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => readData(entry: data),
+                      ),
+                    );
+                  },
+
+
                   child: Text('Save Journal'),
                 ),
+
               ],
             ),
           ),

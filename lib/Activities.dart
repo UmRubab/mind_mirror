@@ -6,7 +6,7 @@ class ActivitiesScreen extends StatefulWidget {
 }
 
 class _ActivitiesScreenState extends State<ActivitiesScreen> {
-  final List<ActivityItem> activities = [
+  List<ActivityItem> activities = [
     ActivityItem(
       title: "Visual Puzzles",
       subtitle: "Test your skills by finding the hidden clues",
@@ -38,7 +38,9 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Activities")),
+      appBar: AppBar(
+          centerTitle:true,
+          title: Text("Activities")),
       body: ListView.builder(
         itemCount: activities.length,
         padding: EdgeInsets.all(12),
@@ -48,7 +50,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => puzzle()),
+                MaterialPageRoute(builder: (_) => PuzzleScreen()),
               );
             },
             child: Container(
@@ -91,9 +93,6 @@ class ActivityItem {
   final IconData icon;
   final Color color;
   /*final VoidCallback onTap;*/
-
-
-
   ActivityItem({
     required this.title,
     required this.subtitle,
