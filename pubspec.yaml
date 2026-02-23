@@ -31,6 +31,9 @@ dependencies:
   flutter:
     sdk: flutter
   flip_card: ^0.7.0
+  curved_navigation_bar: ^1.0.3
+  intl: ^0.18.1
+  flutter_quill: ^8.2.0
 
 
 
@@ -42,6 +45,13 @@ dependencies:
   firebase_auth: ^4.19.0
   firebase_database: ^10.5.0
   google_language_fonts: any
+  confetti: ^0.7.0
+  image_picker: any
+  shared_preferences: ^2.2.2
+  provider: ^6.1.2
+  firebase_messaging: ^14.7.14
+  flutter_local_notifications: ^17.1.0
+  firebase_storage: any
 
 dev_dependencies:
   flutter_test:
@@ -53,7 +63,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-
+  shared_preferences: ^2.5.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mind_mirror/puzzles.dart';
+import 'package:mind_mirror/Screens/Activitiespage/riddlelevels.dart';
+import '../games.dart';
+import '../puzzles.dart';
+import 'breathing exercise.dart';
+
 class ActivitiesScreen extends StatefulWidget {
   @override
   State<ActivitiesScreen> createState() => _ActivitiesScreenState();
@@ -16,7 +20,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
 
     ),
     ActivityItem(
-      title: "Brain and Personality Tests",
+      title: "Brain Test",
       subtitle: "Know your traits and abilities",
       icon: Icons.psychology,
       color: Colors.blueAccent,
@@ -40,7 +44,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle:true,
-          title: Text("Activities")),
+          title: Text("Activitiespage",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold))),
       body: ListView.builder(
         itemCount: activities.length,
         padding: EdgeInsets.all(12),
@@ -48,11 +52,28 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
           final item = activities[index];
           return GestureDetector(
             onTap: () {
+              Widget screen;
+              switch (index) {
+                case 0:
+                  screen = CognitiveFlipGame();
+                  break;
+                case 1:
+                  screen = LevelSelectionScreen();
+                  break;
+                case 2:
+                  screen =BreathingScreen();
+                  break;
+                  break;
+                default:
+                  screen = PuzzlePage(); // fallback
+              }
+
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => PuzzleScreen()),
+                MaterialPageRoute(builder: (_) => screen),
               );
             },
+
             child: Container(
               margin: EdgeInsets.only(bottom: 12),
               padding: EdgeInsets.all(16),

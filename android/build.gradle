@@ -16,3 +16,23 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+//buildscript {
+//    dependencies {
+//        classpath 'com.android.tools.build:gradle:7.4.2' // use AGP below 8.0
+//    }
+//}
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+    }
+}
+
+android {
+    namespace 'com.flutter_keyboard_visibility'
+    // ... keep other existing lines
+}
